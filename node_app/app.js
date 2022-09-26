@@ -68,7 +68,7 @@ app.use("/search", jwtService.validateJwt, searchRoutes);
 app.use("/offer", jwtService.validateJwt, offerRoutes);
 app.use("/comment", jwtService.validateJwt, commentRoutes);
 app.use("/report", jwtService.validateJwt, reportRoutes);
-app.use("/report", jwtService.validateJwt, ownedNoticeRoutes);
+app.use("/owned_notice", jwtService.validateJwt, ownedNoticeRoutes);
 app.get("/favicon.ico",(req, res, next)=>{
   return res.send("a favicon");
 })
@@ -76,6 +76,7 @@ app.get("/favicon.ico",(req, res, next)=>{
 app.use("/",(req,res, next)=>{
   return res.status(404).send("page not found");
 })
+
 
 app.use(errorsMiddleware);
 

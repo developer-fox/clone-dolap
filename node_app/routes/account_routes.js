@@ -124,6 +124,15 @@ router.post("/change_profile_info", async (req, res, next)=>{
   }
 })
 
+router.get("/get_own_notices", async (req, res, next)=>{
+  try {
+    const result = await user_model.findById(req.decoded.id).select("notices").populate("notices","-list_of_the_users_added_this_in_their_cart")
+    return res.send(sendJsonWithTokens(req,result))
+  } catch (error) {
+    return next(error);
+  }
+})
+
 router.get("/get_addresses", async (req, res, next)=>{
   try {
 	const addresses = await user_model.findById(req.decoded.
@@ -202,7 +211,6 @@ router.post("/add_brands", async (req, res, next)=>{
 
   try {
 	  const result = await user_model.updateOne({email: req.decoded.email}, {$push: {brands: new_brands}});
-    console.log(result);
     return res.send(sendJsonWithTokens(req, error_types.success));
   } catch (error) {
     return next(error);
@@ -305,7 +313,6 @@ router.get("/get_sizes_spesific/:top_size/:medium_size", async (req, res, next)=
 
     for(let data of result.sizes){
       const i = data._doc;
-      console.log(i);
       if(i.top_size == top_size && i.medium_size == medium_size){
         sizes.push(i);
       }
@@ -320,7 +327,14 @@ router.get("/get_sizes_spesific/:top_size/:medium_size", async (req, res, next)=
 
 router.get("/get_taken_notices", async (req, res, next)=>{
   try {
-    const result = await user_model.findById(req.decoded.id).select("taken_notices");
+    const result = await user_model.findById(req.decoded.id).select("taken_notices").populate({
+      path: "taken_notices",
+      select: "notice taken_date payment_total.amount states",
+      populate:  {
+        path: "notice",
+        select: "_id profile_photo saler_user"
+      }
+    })
     return res.send(sendJsonWithTokens(req,result));
   } catch (error) {
     return next(error);
@@ -328,30 +342,43 @@ router.get("/get_taken_notices", async (req, res, next)=>{
 })
 
 router.get("/get_home_notices/:page/:refresh",async (req, res, next)=>{
-  const page= req.params.page;
+  let page= req.params.page;
   const refresh = req.params.refresh;
+  page = Number.parseInt(page)
 
-  const selectItems = "favorites_count details.brand profile_photo price_details.saling_price is_featured";
-  if (refresh) {
+  const selectItems = "favorites_count details.brand saler_user profile_photo price_details.saling_price is_featured";
+  if (refresh == "true") {
 	  try {
 	    const userLookedNotices = await user_model.findById(req.decoded.id).select("user_looked_notices");
-	
-      const result = [];
-	    userLookedNotices.user_looked_notices.forEach(async (notice_id)=> {
-	      const similarNotices = await get_similar_notices(notice_id,"_id",3,page);
-        result.push(...similarNotices);
-	    });
-	
+      
+      let promises = [];
+      if(userLookedNotices.user_looked_notices.length < 20){
+          for(let i=0; i<30; i++){
+            promises.push(
+              new Promise(resolve=>{
+                noticeModel.count({state: notice_states.takable}).exec(async(err,count)=>{
+                  let randomNumber = Math.floor(Math.random() * count)
+                  noticeModel.findOne({state: notice_states.takable}).skip(randomNumber).exec(async(err, notice)=>{
+                    resolve(notice);
+                  })
+                })
+              })
+            )
+          }
+      }
+      else{
+        userLookedNotices.user_looked_notices.forEach(async (notice_id)=> {
+          const similarNotices = await get_similar_notices(notice_id,"_id",5,page);
+          result.push(...similarNotices);
+        });
+      }
+      const result = await Promise.all(promises);
       let currentIndex = result.length,  randomIndex;
 
-      // While there remain elements to shuffle.
       while (currentIndex != 0) {
-    
-        // Pick a remaining element.
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex--;
     
-        // And swap it with the current element.
         [result[currentIndex], result[randomIndex]] = [
           result[randomIndex], result[currentIndex]];
       }
@@ -366,7 +393,7 @@ router.get("/get_home_notices/:page/:refresh",async (req, res, next)=>{
 	
   }
   try {
-    const populatedResult = await user_model.findOne(req.decoded.id).select("homepage_notices").populate({
+    const populatedResult = await user_model.findById(req.decoded.id).select("homepage_notices").populate({
       path: "homepage_notices",
       select: selectItems,
       options: {

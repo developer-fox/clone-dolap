@@ -16,7 +16,7 @@ class Socket:
 
     @self.socketInstance.event
     def connect():
-      print("connection established")
+      print("connection established: {}".format(user.username))
     
     @self.socketInstance.event
     def connect_error():
@@ -30,7 +30,10 @@ class Socket:
     def notification(data):
       print(data)
       
-    self.socketInstance.connect(apiUrl, auth=auth)
+    try:
+      self.socketInstance.connect(apiUrl, auth=auth)
+    except Exception as error:
+      print('An exception on {} Socket: {}'.format(user.username,str(error)))
   
   def activateUser(self):
     self.socketInstance.emit("activate_user")

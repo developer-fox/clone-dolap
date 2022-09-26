@@ -1,14 +1,18 @@
 from services.local_db_service import localDbInstance 
-import services.request_service as request_service
-from services.socket_service import Socket
 from dotenv import load_dotenv
-import actions.authentication_actions as authentication_actions
-import sys
-import time
-import os
 load_dotenv(".env")
+from actions.default_lifecycle import DefaultLifeCycle
+
 
 def main():
-  pass
+  isInitialized = localDbInstance.getValueFromConfigWithKey("is_initialized")
+  if(isInitialized is None):
+    InitializationActions()
+
+  localDbInstance.allUsersLogout()
+  while True:
+    currentCycyle =  DefaultLifeCycle(usersCount= 50)
+    del currentCycyle
 
 main()
+

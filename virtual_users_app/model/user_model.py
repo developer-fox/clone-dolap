@@ -10,7 +10,6 @@ class UserModel:
     self.websocket_access_key = websocket_access_key
     self.websocket_refresh_key = websocket_refresh_key
 
-
   def addLocalImagePath(self,path): 
     self.imagePath = path
 
@@ -19,3 +18,9 @@ class UserModel:
     
   def setxAccesKey(self,x_access_key):
     self.x_access_key= x_access_key
+    
+  def addSocket(self,socket): 
+    self.socket = socket
+    
+  def getSocket(self): 
+    return self.socket

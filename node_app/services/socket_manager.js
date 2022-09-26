@@ -23,7 +23,10 @@ module.exports.initializeIo = (server)=>{
     throw new Error("server is not initialized")
   }
   else{
-    io = socketio(server);
+    io = socketio(server,{
+      pingTimeout: ms("1m"),
+      connectTimeout: ms("1m")
+    });
 
     // jwt validating
     io.use(async (socket,next)=>{

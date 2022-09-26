@@ -1,6 +1,7 @@
 
 # environment files
 .env
+node_app/files/
 
 ### NODEJS IGNORE REQUIREMENTS
 
@@ -135,6 +136,11 @@ dist
 .yarn/install-state.gz
 .pnp.*
 ### PYTHON IGNORE REQUIREMENTS
+
+virtual_users_app/local_db.db
+virtual_users_app/geckodriver.exe
+virtual_users_app/geckodriver.log
+virtual_users_app/files/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

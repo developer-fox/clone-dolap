@@ -12,6 +12,8 @@ const login_types = require("../model/api_models/login_types");
 const { sendJsonWithTokens } = require("../services/response_sendjson");
 const error_types = require("../model/api_models/error_types");
 const error_handling_services = require("../services/error_handling_services");
+const shortId = require("shortid");
+shortId.characters("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ#$");
 
 module.exports.signupController = async function (req, res, next) {
   if(req.token != null){
@@ -20,24 +22,30 @@ module.exports.signupController = async function (req, res, next) {
   };
   let errors = validator.validationResult(req);
   if(!errors.isEmpty()){
-    return res.send(errors);
+    return res.status(400).send(errors);
   }
 
   try {
     const search = await isEmailNotUsing(req.body.email);
+    if(req.body.username != null){
+      const usersOfSameUsernames = await user_model.find({username: req.body.username});
+      if(usersOfSameUsernames.length != 0){
+        return next(new Error(error_handling_services(error_types.logicalError,"this username is already using")));
+      }
+    }
     if(!search) {
       return next(new Error(error_handling_services(error_types.logicalError,"this email is already using")));
     }
     const password = await bcrypt.hash(req.body.password, 12);
     const email = req.body.email;
     const phoneNumber = req.body.phone_number;
-    const username = req.body.username;
+    const username = req.body.username ?? `MyDolap${shortId.generate()}`;
     const user = new newUser(username, password, email, phoneNumber);
     let current_user = await user.saveToDatabase();
     const tokens = tokenService.createJwtToken(current_user._id);
     const socketTokens = tokenService.createJwtTokenForWebsockets(current_user._id);
-    return res.send({
-      info: error_types.success,
+    return res.status(200).send({
+      info: current_user.username,
       tokens,
       socketTokens
     });
