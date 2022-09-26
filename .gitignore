@@ -141,6 +141,9 @@ virtual_users_app/local_db.db
 virtual_users_app/geckodriver.exe
 virtual_users_app/geckodriver.log
 virtual_users_app/files/
+virtual_users_app/build/
+virtual_users_app/dist/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

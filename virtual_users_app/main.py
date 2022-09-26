@@ -2,7 +2,7 @@ from services.local_db_service import localDbInstance
 from dotenv import load_dotenv
 load_dotenv(".env")
 from actions.default_lifecycle import DefaultLifeCycle
-
+from actions.initialization_actions import InitializationActions
 
 def main():
   isInitialized = localDbInstance.getValueFromConfigWithKey("is_initialized")
@@ -11,7 +11,7 @@ def main():
 
   localDbInstance.allUsersLogout()
   while True:
-    currentCycyle =  DefaultLifeCycle(usersCount= 50)
+    currentCycyle =  DefaultLifeCycle(usersCount= 1)
     del currentCycyle
 
 main()

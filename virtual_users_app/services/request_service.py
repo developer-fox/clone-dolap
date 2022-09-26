@@ -15,17 +15,17 @@ randomUserApiRootUrl = os.getenv("randomuser_api_url")
 strongPasswordApiRootUrl = os.getenv("strong_password_api_url")
 
 rapidapiHeadersForRandomuserApi = {
-  'X-RapidAPI-Key': os.getenv("x_rapidapi_key"),
-  'X-RapidAPI-Host': os.getenv("x_rapidapi_host_randomuser"),
+  'X-RapidAPI-Key': str(os.getenv("x_rapidapi_key")),
+  'X-RapidAPI-Host': str(os.getenv("x_rapidapi_host_randomuser")),
 }
 
 rapidapiHeadersForFamousQuotesApi = {
-  'X-RapidAPI-Key': os.getenv("x_rapidapi_key"),
-  'X-RapidAPI-Host': os.getenv("x_rapidapi_host_famous_quotes"),
+  'X-RapidAPI-Key': str(os.getenv("x_rapidapi_key")),
+  'X-RapidAPI-Host': str(os.getenv("x_rapidapi_host_famous_quotes")),
 }
 rapidapiHeadersForStrongPasswordApi = {
-  'X-RapidAPI-Key': os.getenv("x_rapidapi_key"),
-  'X-RapidAPI-Host': os.getenv("x_rapidapi_host_strong_password"),
+  'X-RapidAPI-Key': str(os.getenv("x_rapidapi_key")),
+  'X-RapidAPI-Host': str(os.getenv("x_rapidapi_host_strong_password")),
 }
 
 def loginedUserJwtHeaders(user: UserModel):
@@ -44,7 +44,7 @@ def isTokensReplaced(response,user: UserModel): # -> UserModel
 
 def getRandomUserInfo(): # -> {"password", "email","username","picture_name", "phone_number"}
 
-  randomUserResponse  = requests.get(randomUserApiRootUrl +"/getuser",headers=rapidapiHeadersForRandomuserApi)
+  randomUserResponse  = requests.get("{}/getuser".format(str(randomUserApiRootUrl)),headers=rapidapiHeadersForRandomuserApi)
 
   strongPasswordResponse = requests.get(strongPasswordApiRootUrl, headers= rapidapiHeadersForStrongPasswordApi)
 
@@ -75,7 +75,7 @@ def getRandomUserInfo(): # -> {"password", "email","username","picture_name", "p
       result.update({"picture_name":randomUserResponse["results"][0]["login"]["uuid"]+"."+ profileImageUrl.split(".")[-1]})
       writingImageResult = file_service.writeUserProfileImage("./files/users/{}".format(result["picture_name"]), profileImageRequest)
       if(writingImageResult == False):
-        getRandomUserInfo()
+        return getRandomUserInfo()
       else:
         return result
     except Exception as error:
@@ -83,7 +83,7 @@ def getRandomUserInfo(): # -> {"password", "email","username","picture_name", "p
       getRandomUserInfo()
     return result
   else: 
-    getRandomUserInfo()
+    return getRandomUserInfo()
   
 def getRandomCommentContent(count=1):
   contents = []
@@ -94,6 +94,7 @@ def getRandomCommentContent(count=1):
     else:
       return getRandomCommentContent(count= count)  
   return contents
+
 def signupRequest(data): # -> userModel
   randomNumber = random.randint(1, 3)
   if(randomNumber == 2):

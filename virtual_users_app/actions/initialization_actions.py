@@ -47,7 +47,7 @@ class InitializationActions(Action):
           localDbInstance.saveInNoticeLinks((topCategory,noticeLink))
           savedLinksCount += 1
 
-      print("added new {} links".format(savedLinksCount))
+      print("added new {} links".format(str(savedLinksCount)))
 
   def signingNewUsers(self, count):
     authActions = AuthenticationActions()

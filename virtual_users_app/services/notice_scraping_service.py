@@ -20,9 +20,9 @@ dolapRoutes = {
 class ScrapingService:
   def __init__(self):
     driverOptions = Options()
-    driverOptions.binary_location =  os.getenv("firefox_path")
+    driverOptions.binary_location =  str(os.getenv("firefox_path"))
     driverOptions.add_argument("--headless")
-    self.driver = webdriver.Firefox(executable_path= os.getenv("geckodriver_path"),options= driverOptions) 
+    self.driver = webdriver.Firefox(executable_path= str(os.getenv("geckodriver_path")),options= driverOptions) 
 
   def getSearchUrl(self,searchString, pageNumber= 1):
     return "https://dolap.com/ara?q={}&sayfa={}".format(searchString,pageNumber)

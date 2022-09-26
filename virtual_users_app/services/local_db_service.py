@@ -66,7 +66,7 @@ class localDbService:
       fetchedUser.addLocalId(userInDb[0])
       return fetchedUser
     except Exception as error:
-      print('An exception occurred:' + str(error))
+      print('An exception occurred: {}'.format(str(error)))
     
   def updateUserJwtKey(self,user: UserModel, newJwtKey: str):
     self.cursor.execute("Update USERS set x_access_key = ? WHERE username = ? AND email= ?",(newJwtKey,user.username, user.email))
@@ -87,6 +87,7 @@ class localDbService:
       self.connection.commit()
     except Exception as error:
       print('An exception on localDbService/setUserLoginedInfo(): {}'.format(str(error)))
+
   def allUsersLogout(self):
     self.cursor.execute("UPDATE USERS SET is_logined = false WHERE is_logined= true")
     self.connection.commit()

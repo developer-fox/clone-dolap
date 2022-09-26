@@ -20,10 +20,10 @@ class AuthenticationActions(Action):
       localDbInstance.saveNewUser(createdUser)
       self.defineSingleUser(createdUser)
     except Exception as error:
-      if(error == "data Error"):
-        signup()
+      if(str(error) == "data Error"):
+        self.signup()
       else:
-        print("on authentication_actions/signup(): "+str(error))
+        print("on authentication_actions/signup(): {}".format(str(error)))
 
   def multipleSignup(self,count: int):
     signupedUsers = []
@@ -43,7 +43,7 @@ class AuthenticationActions(Action):
         if(error == "data Error"):
           signup()
         else:
-          print("on authentication_actions/signup(): "+str(error))
+          print("on authentication_actions/signup(): {}".format(str(error)))
 
     self.defineMultipleUsers(signupedUsers)
 
