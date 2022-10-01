@@ -1,0 +1,33 @@
+{
+  "example": "this is an example for architecture tests jasdhjkasdhjkan",
+  "welcome": "Welcome to My App",
+  "onBoard": {
+    "loginWithEmailButtonTitle": "E-Posta ile Giriş Yap",
+    "loginWithTrendyolButtonTitle": "Trendyol ile Giriş Yap",
+    "loginWithFaceboolButtonTitle": "Facebook ile Giriş Yap",
+    "signupInfoText": "Üye değil misin?  ",
+    "signupTextButton": "Üye ol"
+  },
+  "signup": {
+    "appbarTitle": "Üye ol",
+    "usernameFieldHintText": "Kullanıcı Adı",
+    "emailFieldHintText": "E-posta",
+    "phoneFieldHintText": "Telefon Numarası",
+    "passwordFieldHintText": "Şifre",
+    "signupButtonTitle": "Üye ol",
+    "loginWithTrendyolButtonTitle" :"Trendyol ile Giriş Yap",
+    "loginWithFaceboolButtonTitle" :"Facebook ile Giriş Yap",
+    "loginInfoText": "Üye misin?  ",
+    "loginTextButton": "Giriş Yap",
+    "discountNotificationsCheckBoxPart1": "İndirim ve kampanyalardan haberdar olmak için ",
+    "discountNotificationsCheckBoxPart2": "Elektronik İleti ",
+    "discountNotificationsCheckBoxPart3": "almak istiyorum",
+    "or": "veya",
+    "signupConditionsTextPart1": "Üye Ol'a basarak ", 
+    "signupConditionsTextPart2_withGesture": "Üyelik Koşulları", 
+    "signupConditionsTextPart3": "'nı ve ", 
+    "signupConditionsTextPart4_withGesture": "Kişisel Verilerin Korunması Metni", 
+    "signupConditionsTextPart5": "'ni kabul ediyorum." 
+  }
+
+}
