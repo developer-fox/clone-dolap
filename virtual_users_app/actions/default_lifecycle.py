@@ -26,11 +26,11 @@ class DefaultLifeCycle(Action):
     self.cycleFunction(usersCount)
 
   def cycleFunction(self, usersCount):
-      self.auth_actions.multipleSignup(math.ceil(usersCount / 2))
+      #self.auth_actions.multipleSignup(math.ceil(usersCount / 2))
       self.usersLogin(usersCount= usersCount)
-      for i in range(usersCount + 15 ):
+      for i in range(usersCount *2):
         self.addRandomNoticeSingle()
-      for i in range(usersCount*2):
+      for i in range(usersCount*3):
         if(i%3 == 0):
           self.addSingleComment()
         if(i%13 == 0):
@@ -114,7 +114,7 @@ class DefaultLifeCycle(Action):
           self.account_actions.setSingleUser(currentUser)
           self.account_actions.followUser(notice["saler_user"])
           self.notice_actions.addToLookedNotices(notice["_id"])
-        if(randomNumber <=14 and randomNumber>= 8):
+        if(randomNumber <=14 and randomNumber>= 10):
           self.notice_actions.addToCart(notice["_id"])          
         elif(randomNumber> 14 and randomNumber< 21):
           self.offer_actions.setSingleUser(currentUser)

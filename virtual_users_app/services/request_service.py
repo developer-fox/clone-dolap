@@ -19,6 +19,8 @@ rapidapiHeadersForRandomuserApi = {
   'X-RapidAPI-Host': str(os.getenv("x_rapidapi_host_randomuser")),
 }
 
+rapidapiParamsForRandomUserApi =  {"locale": 'en_US', "minAge": '18', "maxAge": '50', "domain": 'ugener.com'},
+
 rapidapiHeadersForFamousQuotesApi = {
   'X-RapidAPI-Key': str(os.getenv("x_rapidapi_key")),
   'X-RapidAPI-Host': str(os.getenv("x_rapidapi_host_famous_quotes")),
@@ -44,13 +46,12 @@ def isTokensReplaced(response,user: UserModel): # -> UserModel
 
 def getRandomUserInfo(): # -> {"password", "email","username","picture_name", "phone_number"}
 
-  randomUserResponse  = requests.get("{}/getuser".format(str(randomUserApiRootUrl)),headers=rapidapiHeadersForRandomuserApi)
+  randomUserResponse  = requests.get("{}".format(randomUserApiRootUrl),headers=rapidapiHeadersForRandomuserApi, params = rapidapiParamsForRandomUserApi)
 
   strongPasswordResponse = requests.get(strongPasswordApiRootUrl, headers= rapidapiHeadersForStrongPasswordApi)
-
+  print(randomUserResponse.status_code)
   if(randomUserResponse.status_code == 200 and strongPasswordResponse.status_code == 200):
     randomUserResponse = randomUserResponse.json()
-
     result = {}
 
     result.update({"email":randomUserResponse["results"][0]["email"]})
@@ -83,6 +84,7 @@ def getRandomUserInfo(): # -> {"password", "email","username","picture_name", "p
       getRandomUserInfo()
     return result
   else: 
+    print(randomUserResponse.text)
     return getRandomUserInfo()
   
 def getRandomCommentContent(count=1):
@@ -279,25 +281,21 @@ def addToLookedNoticesRequest(user: UserModel, notice_id):
     print('An exception on requestService/addToLookedNoticesRequest(): {}'.format(str(error)))
     
 def getRandomAddress(): 
-  try:
-    randomUserResponse  = requests.get(randomUserApiRootUrl +"/getuser",  headers=rapidapiHeadersForRandomuserApi)
-    if(randomUserResponse.status_code == 200):
-      randomUserResponse = randomUserResponse.json()
       result= {}
       address = {}
       address.update({"address_description": "any place in our planet"})
-      address.update({"city":randomUserResponse["results"][0]["location"]["city"]})
-      address.update({"county":randomUserResponse["results"][0]["location"]["state"]})
-      address.update({"neighborhood": randomUserResponse["results"][0]["location"]["street"]["name"]})
+      address.update({"city":"Ankara"})
+      address.update({"county":"Çankaya"})
+      address.update({"neighborhood": "Mustafa KemalPaşa Caddesi"})
       result.update({"address_informations": address})    
-
+      
       contact = {
-        "name": randomUserResponse["results"][0]["name"]["first"],
-        "surname": randomUserResponse["results"][0]["name"]["last"],
-        "credendial_id_number": randomUserResponse["results"][0]["login"]["md5"],
+        "name": "Ahmet",
+        "surname": "Yıldız",
+        "credendial_id_number": "123813217",
       }
 
-      phoneNumber = randomUserResponse["results"][0]["phone"]
+      phoneNumber = "5339072812"
       resultPhoneNumber = ""
       for i in phoneNumber:
         if(i.isnumeric()):
@@ -306,12 +304,8 @@ def getRandomAddress():
           resultPhoneNumber += "4"
       contact.update({"phone_number":resultPhoneNumber})
       result.update({"contact_informations": contact})
-      result.update({"address_title": randomUserResponse["results"][0]["location"]["timezone"]["description"]})
+      result.update({"address_title":"Home"})
       return result
-    else: 
-      getRandomUserInfo()    
-  except Exception as error:
-    print('an exception occurred on requestService/getRandomAddress(): {}'.format(str(error)))
 
 def addAddressRequest(user: UserModel, address_informations):
   json = {

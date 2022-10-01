@@ -11,7 +11,7 @@ def main():
 
   localDbInstance.allUsersLogout()
   while True:
-    currentCycyle =  DefaultLifeCycle(usersCount= 1)
+    currentCycyle =  DefaultLifeCycle(usersCount= 40)
     del currentCycyle
 
 main()
