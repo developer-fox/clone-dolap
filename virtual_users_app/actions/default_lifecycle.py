@@ -26,7 +26,7 @@ class DefaultLifeCycle(Action):
     self.cycleFunction(usersCount)
 
   def cycleFunction(self, usersCount):
-      #self.auth_actions.multipleSignup(math.ceil(usersCount / 2))
+      self.auth_actions.multipleSignup(math.ceil(usersCount / 2))
       self.usersLogin(usersCount= usersCount)
       for i in range(usersCount *2):
         self.addRandomNoticeSingle()

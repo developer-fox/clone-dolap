@@ -46,10 +46,9 @@ def isTokensReplaced(response,user: UserModel): # -> UserModel
 
 def getRandomUserInfo(): # -> {"password", "email","username","picture_name", "phone_number"}
 
-  randomUserResponse  = requests.get("{}".format(randomUserApiRootUrl),headers=rapidapiHeadersForRandomuserApi, params = rapidapiParamsForRandomUserApi)
+  randomUserResponse  = requests.get("{}/getuser".format(str(randomUserApiRootUrl)),headers=rapidapiHeadersForRandomuserApi)
 
   strongPasswordResponse = requests.get(strongPasswordApiRootUrl, headers= rapidapiHeadersForStrongPasswordApi)
-  print(randomUserResponse.status_code)
   if(randomUserResponse.status_code == 200 and strongPasswordResponse.status_code == 200):
     randomUserResponse = randomUserResponse.json()
     result = {}
@@ -281,21 +280,25 @@ def addToLookedNoticesRequest(user: UserModel, notice_id):
     print('An exception on requestService/addToLookedNoticesRequest(): {}'.format(str(error)))
     
 def getRandomAddress(): 
+  try:
+    randomUserResponse  = requests.get(randomUserApiRootUrl +"/getuser",  headers=rapidapiHeadersForRandomuserApi)
+    if(randomUserResponse.status_code == 200):
+      randomUserResponse = randomUserResponse.json()
       result= {}
       address = {}
       address.update({"address_description": "any place in our planet"})
-      address.update({"city":"Ankara"})
-      address.update({"county":"Çankaya"})
-      address.update({"neighborhood": "Mustafa KemalPaşa Caddesi"})
+      address.update({"city":randomUserResponse["results"][0]["location"]["city"]})
+      address.update({"county":randomUserResponse["results"][0]["location"]["state"]})
+      address.update({"neighborhood": randomUserResponse["results"][0]["location"]["street"]["name"]})
       result.update({"address_informations": address})    
-      
+
       contact = {
-        "name": "Ahmet",
-        "surname": "Yıldız",
-        "credendial_id_number": "123813217",
+        "name": randomUserResponse["results"][0]["name"]["first"],
+        "surname": randomUserResponse["results"][0]["name"]["last"],
+        "credendial_id_number": randomUserResponse["results"][0]["login"]["md5"],
       }
 
-      phoneNumber = "5339072812"
+      phoneNumber = randomUserResponse["results"][0]["phone"]
       resultPhoneNumber = ""
       for i in phoneNumber:
         if(i.isnumeric()):
@@ -304,8 +307,13 @@ def getRandomAddress():
           resultPhoneNumber += "4"
       contact.update({"phone_number":resultPhoneNumber})
       result.update({"contact_informations": contact})
-      result.update({"address_title":"Home"})
+      result.update({"address_title": randomUserResponse["results"][0]["location"]["timezone"]["description"]})
       return result
+    else: 
+      getRandomUserInfo()    
+  except Exception as error:
+    print('an exception occurred on requestService/getRandomAddress(): {}'.format(str(error)))
+
 
 def addAddressRequest(user: UserModel, address_informations):
   json = {

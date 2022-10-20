@@ -28,6 +28,24 @@
     "signupConditionsTextPart3": "'nı ve ", 
     "signupConditionsTextPart4_withGesture": "Kişisel Verilerin Korunması Metni", 
     "signupConditionsTextPart5": "'ni kabul ediyorum." 
+  },
+  "login": {
+    "appbarTitle" : "Giriş Yap",
+    "usernameFieldHintText" : "Kullanıcı Adı/E-Posta",
+    "passwordFieldHintText" : "Şifre",
+    "forgotPasswordButtonText": "Şifremi Unuttum",
+    "loginButtonText": "Giriş Yap",
+    "loginWithTrendyolButtonTitle" :"Trendyol ile Giriş Yap",
+    "loginWithFaceboolButtonTitle" :"Facebook ile Giriş Yap",
+    "or": "veya",
+    "signupInfoText" : "Üye değil misin? ",
+    "signupTextButton" : "Üye ol",
+    "passwordFieldErrorText": "Lütfen şifrenizi giriniz.",
+    "passwordWeakErrorText": "Lütfen geçerli bir şifre giriniz.",
+    "usernameFieldErrorText":"Lütfen kullanıcı adınızı ya da mail adresinizi giriniz.",
+    "invalidValues": "Kullanıcı adı ya da parola yanlış.",
+    "ok": "Tamam"
   }
+  
 
 }

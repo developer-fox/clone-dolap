@@ -1,0 +1,6 @@
+
+enum AuthenticationButtonType{
+  withClearBackground,
+  withCustomBackground
+}
+
