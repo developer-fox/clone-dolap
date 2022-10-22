@@ -1,5 +1,6 @@
 
 import 'package:clone_dolap/core/base/model/base_response_model.dart';
+
 class LoginWithEmailResponseModel extends BaseResponseModel<LoginWithEmailResponseModel> {
 
   // for responses
@@ -27,4 +28,5 @@ class LoginWithEmailResponseModel extends BaseResponseModel<LoginWithEmailRespon
   static LoginWithEmailResponseModel blank(){
     return LoginWithEmailResponseModel(jwtToken: "", jwtRefreshToken: "", websocketToken: "", websocketRefreshToken: "");
   }
+
 }

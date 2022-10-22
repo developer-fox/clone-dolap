@@ -1,8 +1,9 @@
 
+import 'package:clone_dolap/core/base/model/base_request_model.dart';
 import 'package:clone_dolap/core/constants/enums/response_error_types_enum.dart';
 import 'package:dio/dio.dart';
 import '../../base/model/base_error.dart';
-import '../../base/model/base_model.dart';
+import '../../base/model/base_response_model.dart';
 import '../../constants/app/network_constants.dart';
 import '../../constants/enums/locale_keys_enum.dart';
 import '../cache/locale_manager.dart';
@@ -60,17 +61,17 @@ class NetworkManagement{
   }
 
   // get requestler icin method
-  Future<Object?> getRequest<RequestModel extends BaseModel<RequestModel>>({required String path,  RequestModel? model}) async{
-    var response = await _dio.request(path, data: model?.toJson(), options: Options(
+  Future<Object?> getRequest<RequestModel extends BaseRequestModel, ResponseModel extends BaseResponseModel<ResponseModel>>({required String path,  RequestModel? requestModel, ResponseModel? responseModel}) async{
+    var response = await _dio.request(path, data: requestModel?.toJson(), options: Options(
       method: "get"
     ));
-    return _postRequestReturnValueAccordingStatusCode(response, model);
+    return _postRequestReturnValueAccordingStatusCode<ResponseModel>(response, responseModel);
   }
 
   // get requestler icin method
-  Future<Object?> postRequest<RequestModel extends BaseModel<RequestModel>>({required String path,  RequestModel? model, BaseError? Function(Response<dynamic> response)? addErrorCondition}) async{
-    var response = await _dio.post(path, data: model?.toJson());
-    return _postRequestReturnValueAccordingStatusCode(response, model, addErrorCondition: addErrorCondition);
+  Future<Object?> postRequest<RequestModel extends BaseRequestModel, ResponseModel extends BaseResponseModel<ResponseModel>>({required String path,  required RequestModel requestModel, required ResponseModel responseModel, BaseError? Function(Response<dynamic> response)? addErrorCondition}) async{
+    var response = await _dio.post(path, data: requestModel.toJson());
+    return _postRequestReturnValueAccordingStatusCode<ResponseModel>(response, responseModel, addErrorCondition: addErrorCondition);
   }
   
   Map<PreferencesKeys,String> _getHttpTokensFromCache() {
@@ -137,7 +138,7 @@ class NetworkManagement{
     }
   }
 
-  Object? _postRequestReturnValueAccordingStatusCode<RequestModel extends BaseModel<RequestModel>>(Response<dynamic> response, RequestModel? model, {BaseError? Function(Response<dynamic> response)? addErrorCondition}){
+  Object? _postRequestReturnValueAccordingStatusCode<ResponseModel extends BaseResponseModel<ResponseModel>>(Response<dynamic> response, ResponseModel? model, {BaseError? Function(Response<dynamic> response)? addErrorCondition}){
 
     if(addErrorCondition != null){
       if(addErrorCondition(response) is BaseError){
@@ -164,12 +165,7 @@ class NetworkManagement{
       }
     }
     else if(successStatusCodes.contains(response.statusCode)){
-      if(response.data is List){
-        return response.data.map((e) => model?.fromJson(e)).toList();
-      }
-      else{
-        return model?.fromJson(response.data);
-      }
+      return model?.fromJson(response.data);
     }
     else if(response.statusCode == null){
       return null;

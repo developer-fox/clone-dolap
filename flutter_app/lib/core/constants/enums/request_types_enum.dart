@@ -1,0 +1,5 @@
+
+enum RequestTypesEnum{
+  loginWithEmail,
+  loginWithUsername,
+}

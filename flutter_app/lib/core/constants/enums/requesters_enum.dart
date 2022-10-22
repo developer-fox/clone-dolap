@@ -1,0 +1,5 @@
+
+enum RequestersEnum{
+  auto,
+  client,
+}

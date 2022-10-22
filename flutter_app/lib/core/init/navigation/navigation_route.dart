@@ -2,7 +2,6 @@
 import 'package:clone_dolap/view/authenticate/signup/view/signup_view.dart';
 import 'package:clone_dolap/view/home/view/home_view.dart';
 import 'package:flutter/material.dart';
-
 import '../../../view/architecture_testing/test_main.dart';
 import '../../../view/architecture_testing/test_view.dart';
 import '../../../view/authenticate/login/view/login_view.dart';

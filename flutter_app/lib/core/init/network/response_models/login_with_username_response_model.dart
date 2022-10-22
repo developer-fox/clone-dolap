@@ -1,13 +1,14 @@
 
 import 'package:clone_dolap/core/base/model/base_response_model.dart';
-class LoginWithEmailResponseModel extends BaseResponseModel<LoginWithEmailResponseModel> {
+
+class LoginWithUsernameResponseModel extends BaseResponseModel<LoginWithUsernameResponseModel> {
 
   // for responses
   String jwtToken;
   String jwtRefreshToken;
   String websocketToken;
   String websocketRefreshToken;
-  LoginWithEmailResponseModel({
+  LoginWithUsernameResponseModel({
     required this.jwtToken,
     required this.jwtRefreshToken,
     required this.websocketToken,
@@ -15,8 +16,8 @@ class LoginWithEmailResponseModel extends BaseResponseModel<LoginWithEmailRespon
   });
 
   @override
-  LoginWithEmailResponseModel fromJson(Map<String, Object> jsonData) {
-    return LoginWithEmailResponseModel(
+  LoginWithUsernameResponseModel fromJson(Map<String, Object> jsonData) {
+    return LoginWithUsernameResponseModel(
       jwtToken: (jsonData["tokens"] as Map)["jwt_token"]! as String,
       jwtRefreshToken: (jsonData["tokens"] as Map)["refresh_token"]! as String,
       websocketRefreshToken: (jsonData["socketTokens"] as Map)["websocket_refresh_token"]! as String,
@@ -24,7 +25,7 @@ class LoginWithEmailResponseModel extends BaseResponseModel<LoginWithEmailRespon
     );
   }
 
-  static LoginWithEmailResponseModel blank(){
-    return LoginWithEmailResponseModel(jwtToken: "", jwtRefreshToken: "", websocketToken: "", websocketRefreshToken: "");
+  static LoginWithUsernameResponseModel blank(){
+    return LoginWithUsernameResponseModel(jwtToken: "", jwtRefreshToken: "", websocketToken: "", websocketRefreshToken: "");
   }
 }

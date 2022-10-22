@@ -1,4 +1,5 @@
 
+import 'package:clone_dolap/core/base/model/base_response_model.dart';
 import 'package:clone_dolap/core/base/state/base_state.dart';
 import 'package:clone_dolap/core/base/view/base_view.dart';
 import 'package:clone_dolap/core/constants/enums/authentication_button_types_enum.dart';
@@ -15,12 +16,11 @@ import 'package:clone_dolap/view/authenticate/login/model/login_email_model.dart
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../core/base/model/base_error.dart';
-import '../../../../core/base/model/base_model.dart';
 import '../../../../core/constants/enums/response_error_types_enum.dart';
 import '../../../../core/constants/navigation/navigation_constants.dart';
 import '../../../../core/init/navigation/navigation_service.dart';
-import '../model/login_username_model.dart';
-
+import '../../../../core/init/network/request_models/login_with_email_request_model.dart';
+import '../../../../core/init/network/response_models/login_with_username_response_model.dart';
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 
@@ -36,8 +36,6 @@ class _LoginViewState extends BaseState<LoginView> {
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      onModelReady: (){},
-      onModelDispose: (){},
       onPageBuilder: (context) {
         return Scaffold(
           appBar: AppBar(title: Text(LocaleKeys.login_appbarTitle.locale),),
@@ -147,13 +145,13 @@ class _LoginViewState extends BaseState<LoginView> {
                               result = await RequestService.instance.loginWithUsernameRequest(emailFieldController.value.text, passwordFieldController.text);
                             }
 
-                            if(result is BaseModel){
+                            if(result is BaseResponseModel){
                               Map<bool,void Function()> ol = {
                                 true:() async{
-                                  LocalService.instance.saveLoginedUserTokensFromLocaleWithEmailRequest(result as LoginWithEmailRequestModel);
+                                  LocalService.instance.saveLoginedUserTokensFromLocaleWithEmailRequest(result as LoginWithEmailResponseModel);
                                 },
                                 false: () async{
-                                  LocalService.instance.saveLoginedUserTokensFromLocaleWithUsernameRequest(result as LoginWithUsernameRequestModel);
+                                  LocalService.instance.saveLoginedUserTokensFromLocaleWithUsernameRequest(result as LoginWithUsernameResponseModel);
                                 } 
                               };
                               ol[result is LoginWithEmailRequestModel]!();

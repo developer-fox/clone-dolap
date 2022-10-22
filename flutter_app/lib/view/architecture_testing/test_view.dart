@@ -17,8 +17,8 @@ class Example {
 
 class TestView extends StatefulWidget {
 
-  Example string_content;
-  TestView({
+  final Example string_content;
+  const TestView({
     Key? key,
     required this.string_content,
   }) : super(key: key);
@@ -31,8 +31,6 @@ class TestViewState extends BaseState<TestView> {
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      onModelReady: (){},
-      onModelDispose: (){},
       onPageBuilder: (context) {
         return  Scaffold(
           body: Center(

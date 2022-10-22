@@ -4,6 +4,8 @@ import 'package:clone_dolap/core/init/cache/locale_manager.dart';
 import 'package:clone_dolap/view/authenticate/onboard/view/onboard_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'core/base/state/http_cubit.dart';
 import 'core/constants/app/app_constants.dart';
 import 'core/init/language/language_manager.dart';
 import 'core/init/navigation/navigation_route.dart';
@@ -31,15 +33,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LocaleManager.preferencesInit();
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      title: 'Flutter Demo',
-      theme: AppThemeLight.instance.theme,
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-      onGenerateRoute: NavigationRoute.instance.generateRoute,
-      navigatorKey: NavigationService.instance.navigatorKey,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: ((context) => HttpCubit())),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        title: 'Flutter Demo',
+        theme: AppThemeLight.instance.theme,
+        home: MyHomePage(title: 'Flutter Demo Home Page'),
+        onGenerateRoute: NavigationRoute.instance.generateRoute,
+        navigatorKey: NavigationService.instance.navigatorKey,
+      ),
     );
   }
 }

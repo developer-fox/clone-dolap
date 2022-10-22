@@ -13,7 +13,7 @@ import '../../../../core/init/language/locale_keys.g.dart';
 import '../../../../core/init/navigation/navigation_service.dart';
 
 class OnboardView extends StatefulWidget {
-  OnboardView({Key? key}) : super(key: key);
+  const OnboardView({Key? key}) : super(key: key);
 
   @override
   State<OnboardView> createState() => _OnboardViewState();
@@ -23,8 +23,6 @@ class _OnboardViewState extends BaseState<OnboardView> {
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      onModelReady: (){},
-      onModelDispose: (){},
       onPageBuilder: (context) {
         return Scaffold(
           appBar: AppBar(
