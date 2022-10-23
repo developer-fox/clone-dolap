@@ -1,6 +1,7 @@
 
 import 'package:clone_dolap/core/constants/enums/locale_keys_enum.dart';
 import 'package:clone_dolap/core/init/cache/locale_manager.dart';
+import 'package:clone_dolap/product/components/field/authentication_password_field.dart';
 import 'package:clone_dolap/view/authenticate/onboard/view/onboard_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: ((context) => HttpCubit())),
+        BlocProvider(create: ((context) => AuthenticationPasswordFieldCubit())),
+
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

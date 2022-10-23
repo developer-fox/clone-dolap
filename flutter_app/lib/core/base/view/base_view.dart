@@ -9,12 +9,12 @@ class BaseView<T extends Cubit?> extends StatefulWidget {
   final T? viewModel;
 
   // initstate icerisinde calismasini istedigimiz method
-  final void Function(BuildContext context)? onModelReady;
+  final void Function(BuildContext baseContext)? onModelReady;
 
   // dispose icerisinde calismasini istedigimiz method
-  final void Function(BuildContext context)? onModelDispose;
+  final void Function(BuildContext baseContext)? onModelDispose;
 
-  final void Function(BuildContext context)? onModelDeactivate;
+  final void Function(BuildContext baseContext)? onModelDeactivate;
 
   // build methodu icerisinde render edilmesini istedigimiz widget
   final Widget Function(BuildContext context) onPageBuilder;

@@ -22,7 +22,7 @@ class OrDivider extends StatelessWidget {
             color: context.currentThemeData.canvasColor,
             width: context.getDynamicWidth(12),
             height: context.getDynamicWidth(6),
-            child: Center(child: Text(LocaleKeys.login_or.locale)),
+            child: Center(child: Text(LocaleKeys.login_or.locale, style: context.currentThemeData.textTheme.bodySmall!.copyWith(fontWeight: FontWeight.w100, color: context.currentThemeData.colorScheme.secondary))),
           ),
         ),
       ],

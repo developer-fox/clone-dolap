@@ -10,6 +10,7 @@ extension StringLocalization on String {
 
   bool get isValidEmails => RegExp(ApplicationConstants.instance.EMAIL_REGEX).hasMatch(this);
   bool get isStrongPassword => RegExp(ApplicationConstants.instance.STRONG_PASSWORD_REGEX).hasMatch(this);
+  bool get isValidatePhoneNumber => RegExp(ApplicationConstants.instance.PHONE_NUMBER_VALIDATION_REGEX).hasMatch(this);
 }
 
 extension ImagePathExtension on String {

@@ -10,6 +10,7 @@ abstract class  LocaleKeys {
   static const onBoard_signupTextButton = 'onBoard.signupTextButton';
   static const onBoard = 'onBoard';
   static const signup_appbarTitle = 'signup.appbarTitle';
+  static const signup_nonNullableFieldErrorText = 'signup.nonNullableFieldErrorText';
   static const signup_usernameFieldHintText = 'signup.usernameFieldHintText';
   static const signup_emailFieldHintText = 'signup.emailFieldHintText';
   static const signup_phoneFieldHintText = 'signup.phoneFieldHintText';
@@ -28,6 +29,8 @@ abstract class  LocaleKeys {
   static const signup_signupConditionsTextPart3 = 'signup.signupConditionsTextPart3';
   static const signup_signupConditionsTextPart4_withGesture = 'signup.signupConditionsTextPart4_withGesture';
   static const signup_signupConditionsTextPart5 = 'signup.signupConditionsTextPart5';
+  static const signup_emailIsNotEmail = 'signup.emailIsNotEmail';
+  static const signup_phoneNumberIsNotPhoneNumber = 'signup.phoneNumberIsNotPhoneNumber';
   static const signup = 'signup';
   static const login_appbarTitle = 'login.appbarTitle';
   static const login_usernameFieldHintText = 'login.usernameFieldHintText';

@@ -10,6 +10,7 @@
   },
   "signup": {
     "appbarTitle": "Üye ol",
+    "nonNullableFieldErrorText": "Lütfen bu alanı doldurunuz.",
     "usernameFieldHintText": "Kullanıcı Adı",
     "emailFieldHintText": "E-posta",
     "phoneFieldHintText": "Telefon Numarası",
@@ -27,7 +28,9 @@
     "signupConditionsTextPart2_withGesture": "Üyelik Koşulları", 
     "signupConditionsTextPart3": "'nı ve ", 
     "signupConditionsTextPart4_withGesture": "Kişisel Verilerin Korunması Metni", 
-    "signupConditionsTextPart5": "'ni kabul ediyorum." 
+    "signupConditionsTextPart5": "'ni kabul ediyorum.",
+    "emailIsNotEmail": "Lütfen geçerli bir mail adresi giriniz.",
+    "phoneNumberIsNotPhoneNumber": "Lütfen geçerli bir telefon numarası giriniz."
   },
   "login": {
     "appbarTitle" : "Giriş Yap",

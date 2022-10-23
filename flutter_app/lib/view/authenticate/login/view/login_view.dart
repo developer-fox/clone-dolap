@@ -12,14 +12,14 @@ import 'package:clone_dolap/product/components/button/authentication_button.dart
 import 'package:clone_dolap/product/components/dialog/login_invalid_informations_dialog.dart';
 import 'package:clone_dolap/product/components/divider/or_divider.dart';
 import 'package:clone_dolap/product/components/field/authentication_field.dart';
-import 'package:clone_dolap/view/authenticate/login/model/login_email_model.dart';
+import 'package:clone_dolap/product/components/field/authentication_password_field.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../../core/base/model/base_error.dart';
 import '../../../../core/constants/enums/response_error_types_enum.dart';
 import '../../../../core/constants/navigation/navigation_constants.dart';
 import '../../../../core/init/navigation/navigation_service.dart';
 import '../../../../core/init/network/request_models/login_with_email_request_model.dart';
+import '../../../../core/init/network/response_models/login_with_email_response_model.dart';
 import '../../../../core/init/network/response_models/login_with_username_response_model.dart';
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -80,44 +80,7 @@ class _LoginViewState extends BaseState<LoginView> {
                           // password field
                           Padding(
                             padding: EdgeInsets.only(top: context.mediumValue -10),
-                            child: AuthenticationField(
-                              hintText: LocaleKeys.login_passwordFieldHintText.locale, 
-                              obscureText: passwordFieldObscuring,
-                              controller: passwordFieldController,
-                              validator: (value) {
-                              if(value == null || value.isEmpty){
-                                return LocaleKeys.login_passwordFieldErrorText.locale;
-                              }
-                              else if(!value.isStrongPassword){
-                                return LocaleKeys.login_passwordWeakErrorText.locale;
-                              }
-                              else{
-                                return null;
-                              }
-                              },
-                              trailing: passwordFieldObscuring ? 
-                                GestureDetector(
-                                  onTap: () {  
-                                    if(passwordFieldObscuring){
-                                      setState(() {
-                                        passwordFieldObscuring = false;
-                                      });
-                                    }
-                                  },
-                                  child: FaIcon(FontAwesomeIcons.eye, color: currentThemeData.colorScheme.secondary, size: 16),
-                                )
-                                :
-                                GestureDetector(
-                                  onTap: () {  
-                                    if(!passwordFieldObscuring){
-                                      setState(() {
-                                        passwordFieldObscuring = true;
-                                      });
-                                    }
-                                  },
-                                  child: FaIcon(FontAwesomeIcons.eyeSlash, color: currentThemeData.colorScheme.secondary, size: 16),
-                                )
-                            ),
+                            child: AuthenticationPasswordField(controller: passwordFieldController,),
                           ),
                           ],
                         ),

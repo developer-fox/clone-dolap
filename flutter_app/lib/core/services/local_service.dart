@@ -1,8 +1,7 @@
 
 import 'package:clone_dolap/core/constants/enums/locale_keys_enum.dart';
 import 'package:clone_dolap/core/init/cache/locale_manager.dart';
-import 'package:clone_dolap/view/authenticate/login/model/login_email_model.dart';
-
+import '../init/network/response_models/login_with_email_response_model.dart';
 import '../init/network/response_models/login_with_username_response_model.dart';
 
 class LocalService{

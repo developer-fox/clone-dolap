@@ -9,6 +9,7 @@ class AuthenticationField extends StatefulWidget {
   final String hintText;
   final Widget? trailing;
   final String? Function(String? value)? validator;
+  final TextInputType? keyboardType;
   final TextEditingController controller;
 
   const AuthenticationField({
@@ -17,7 +18,8 @@ class AuthenticationField extends StatefulWidget {
     required this.hintText,
     this.trailing,
     this.validator,
-    required this.controller,
+    required this.controller, 
+    this.keyboardType,
   }) : super(key: key);
 
   @override
@@ -27,15 +29,9 @@ class AuthenticationField extends StatefulWidget {
 class _AuthenticationFieldState extends BaseState<AuthenticationField> {
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-  }
-
-  @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.keyboardType,
       cursorColor: Colors.black87,
       cursorWidth: 1,
       validator: widget.validator,

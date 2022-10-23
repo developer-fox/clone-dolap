@@ -91,7 +91,8 @@ class NetworkManagement{
   bool _ispathNeedingTokens(String path) {
     if(
       path == NetworkConstants.loginWithEmailPath 
-      || path == NetworkConstants.loginWithUsernamePath 
+      || path == NetworkConstants.loginWithUsernamePath
+      || path == NetworkConstants.signupPath 
       ){
       return false;
     }
