@@ -1,6 +1,7 @@
 {
   "example": "this is an example for architecture tests jasdhjkasdhjkan",
   "welcome": "Welcome to My App",
+  "networkErrorOccured": "İşleminiz gerçekleştirilirken hata oluştu.",
   "onBoard": {
     "loginWithEmailButtonTitle": "E-Posta ile Giriş Yap",
     "loginWithTrendyolButtonTitle": "Trendyol ile Giriş Yap",
@@ -30,7 +31,9 @@
     "signupConditionsTextPart4_withGesture": "Kişisel Verilerin Korunması Metni", 
     "signupConditionsTextPart5": "'ni kabul ediyorum.",
     "emailIsNotEmail": "Lütfen geçerli bir mail adresi giriniz.",
-    "phoneNumberIsNotPhoneNumber": "Lütfen geçerli bir telefon numarası giriniz."
+    "phoneNumberIsNotPhoneNumber": "Lütfen geçerli bir telefon numarası giriniz.",
+    "thisEmailIsUsing": "Bu mail adresini alamazsınız.",
+    "thisUsernameIsUsing": "Bu kullanıcı adını alamazsınız." 
   },
   "login": {
     "appbarTitle" : "Giriş Yap",

@@ -7,7 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../core/init/language/locale_keys.g.dart';
 
 class LoginInvalidInformationsDialog extends StatefulWidget {
-  const LoginInvalidInformationsDialog({Key? key}) : super(key: key);
+  final String message;
+  const LoginInvalidInformationsDialog({Key? key, required this.message}) : super(key: key);
 
   @override
   State<LoginInvalidInformationsDialog> createState() => _LoginInvalidInformationsDialogState();
@@ -18,7 +19,7 @@ class _LoginInvalidInformationsDialogState extends State<LoginInvalidInformation
   Widget build(BuildContext context) {
     return AlertDialog(
       title:   FaIcon(FontAwesomeIcons.xmark, color: context.currentThemeData.colorScheme.error),
-      content: Text(LocaleKeys.login_invalidValues.locale, style: context.currentThemeData.textTheme.titleSmall),
+      content: Text(widget.message, style: context.currentThemeData.textTheme.titleSmall),
       actions: [
         TextButton(
           onPressed: ()=> Navigator.of(context).pop(),

@@ -3,6 +3,7 @@
 abstract class  LocaleKeys {
   static const example = 'example';
   static const welcome = 'welcome';
+  static const networkErrorOccured = 'networkErrorOccured';
   static const onBoard_loginWithEmailButtonTitle = 'onBoard.loginWithEmailButtonTitle';
   static const onBoard_loginWithTrendyolButtonTitle = 'onBoard.loginWithTrendyolButtonTitle';
   static const onBoard_loginWithFaceboolButtonTitle = 'onBoard.loginWithFaceboolButtonTitle';
@@ -31,6 +32,8 @@ abstract class  LocaleKeys {
   static const signup_signupConditionsTextPart5 = 'signup.signupConditionsTextPart5';
   static const signup_emailIsNotEmail = 'signup.emailIsNotEmail';
   static const signup_phoneNumberIsNotPhoneNumber = 'signup.phoneNumberIsNotPhoneNumber';
+  static const signup_thisEmailIsUsing = 'signup.thisEmailIsUsing';
+  static const signup_thisUsernameIsUsing = 'signup.thisUsernameIsUsing';
   static const signup = 'signup';
   static const login_appbarTitle = 'login.appbarTitle';
   static const login_usernameFieldHintText = 'login.usernameFieldHintText';

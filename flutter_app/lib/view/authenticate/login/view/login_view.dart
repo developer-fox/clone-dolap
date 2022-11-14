@@ -124,7 +124,7 @@ class _LoginViewState extends BaseState<LoginView> {
                               showDialog(
                                 context: context, 
                                 builder:(context) {
-                                  return const LoginInvalidInformationsDialog();
+                                  return LoginInvalidInformationsDialog(message: LocaleKeys.login_invalidValues.locale,);
                                 },
                               );
                             }

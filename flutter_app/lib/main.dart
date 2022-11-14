@@ -1,16 +1,18 @@
 
+import 'package:clone_dolap/core/base/state/bloc/default_request_bloc.dart';
 import 'package:clone_dolap/core/constants/enums/locale_keys_enum.dart';
 import 'package:clone_dolap/core/init/cache/locale_manager.dart';
 import 'package:clone_dolap/product/components/field/authentication_password_field.dart';
 import 'package:clone_dolap/view/authenticate/onboard/view/onboard_view.dart';
+import 'package:clone_dolap/view/home/view/home_view.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/base/state/http_cubit.dart';
 import 'core/constants/app/app_constants.dart';
 import 'core/init/language/language_manager.dart';
 import 'core/init/navigation/navigation_route.dart';
 import 'core/init/navigation/navigation_service.dart';
+import 'core/init/network/response_models/signup_response_model.dart';
 import 'core/init/theme/app_theme_light.dart';
 
 void main() async {
@@ -36,9 +38,7 @@ class MyApp extends StatelessWidget {
     LocaleManager.preferencesInit();
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: ((context) => HttpCubit())),
         BlocProvider(create: ((context) => AuthenticationPasswordFieldCubit())),
-
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     if(isLogined){
       //TODO: replace home view
-      return OnboardView();
+      return HomeView();
     }
     else{
       return OnboardView();

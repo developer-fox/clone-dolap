@@ -130,7 +130,7 @@ class NetworkManagement{
   }
 
   void _extractResponseData(Response<dynamic> e, ResponseInterceptorHandler handler){
-    if(e.data["tokens"] != null && (e.requestOptions.path != NetworkConstants.loginWithEmailPath && e.requestOptions.path != NetworkConstants.loginWithUsernamePath)){
+    if(e.data["tokens"] != null && (e.requestOptions.path != NetworkConstants.loginWithEmailPath && e.requestOptions.path != NetworkConstants.loginWithUsernamePath && e.requestOptions.path != NetworkConstants.signupPath)){
       e.data = e.data["json"];
       return handler.resolve(e);
     }
@@ -150,6 +150,7 @@ class NetworkManagement{
     if(definedErrorStatusCodes.contains(response.statusCode)){
       switch (response.statusCode) {
         case 400:
+        print(response.data);
           return BaseError(message: response.data, statusCode: response.statusCode!, errorType: ResponseErrorTypesEnum.invalidValue);
         case 404:
           return BaseError(message: response.data, statusCode: response.statusCode!, errorType: ResponseErrorTypesEnum.invalidValue);

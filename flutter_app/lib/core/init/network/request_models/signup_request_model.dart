@@ -19,7 +19,7 @@ class SignupRequestModel extends BaseRequestModel {
       "username": username,
       "email": email,
       "password": password,
-      "phoneNumber": phoneNumber
+      "phone_number": phoneNumber
     };
   }
 }
